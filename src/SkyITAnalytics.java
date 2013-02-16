@@ -9,7 +9,6 @@ public class SkyITAnalytics
 		init();
 	}
 	
-	//Initialize all processes and start them
 	private static void init()
 	{
 		String fp = "C:\\Users\\STetreault\\Desktop\\sampleDataSet.csv";

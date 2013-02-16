@@ -4,7 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.String; 
 
-
 public class FileIO 
 {
 	private BufferedReader br;
@@ -42,57 +41,47 @@ public class FileIO
 		try
 		{
 			line = br.readLine(); //eat up the header line
-			int count = 0;
 			
+			/*
+			 * I'm working under some current assumptions, mainly that each item
+			 * will have the correct expected input for location (mainly that state is set). 
+			 * 
+			 * We ignore any online/e-commerce sales since location isn't set for those items. 
+			 */
 			while((line = br.readLine()) != null)
 			{
-				count++;
-				/*
-				 * We can disregard E-Commerce records because we do not know where
-				 * they are shipping these items.
-				 */
-				if(!(line.indexOf("E-Commerce") > -1))
-				{
-					String[] temp = line.split(","); 
+				//temp[] contains (in order) TPID, Store Num, City, State, Zip, Country, Style, NRF, Size
+				String[] temp = line.split(","); 
+				
+				newItem.setTpid(temp[0]);
+				newItem.setStoreNum(temp[1]);
+				newItem.setCity(temp[2]);
+				newItem.setState(temp[3]);
+				newItem.setRegion(temp[3]);
+				newItem.setZip(temp[4]);
+				newItem.setCountry(temp[5]);
+				newItem.setStyle(temp[6]);
+				newItem.setNrf(temp[7]);
+				newItem.setSize(temp[8]);
+				dataSet.addItem(newItem);
+				
+//				System.out.println(newItem.getTpid() + " " + newItem.getStoreNum() + " " + newItem.getCity() + " " + newItem.getState() + " " +
+//						newItem.getItemRegion() + " " + newItem.getItemDivision() + " " + newItem.getZip() + " " + newItem.getCountry() + " " +
+//						newItem.getStyle() + " " + newItem.getNrf() + " " + newItem.getSize() + " " + "\n");
+				
+				newItem = new Item();
 
-					newItem.setTpid(temp[0]);
-					/*
-					 * Overridden Location constructor: 
-					 * 
-					 * 	public Location(String adrs1, String adrs2, int sNum, String sName, String cityParam, String stateParam, int zipCode, String countryParam)
-					 */
-					newItem.setLocation(temp[3], temp[4], temp[1], temp[2], temp[5], temp[6], temp[7], temp[8]);
-					newItem.setStyle(temp[9]);
-					newItem.setNrf(temp[10]);
-					newItem.setSize(temp[11]);
-					
-					
-					System.out.println(newItem.getTpid() + " " + newItem.getSize() + " " + newItem.getStyle() + " " + newItem.getNrf() + " " + 
-							newItem.getLocationStoreNum() + " " + newItem.getLocationStoreName() + " " + newItem.getLocationCity() + " " + newItem.getLocationState() + " " + 
-							newItem.getLocationZip() + " " + newItem.getLocationCountry() + " " + newItem.getLocationAddress() + " " + "\n");
-					System.out.println(count + "\n");
-					//add item to data set and create new item
-					dataSet.addItem(newItem);
-					newItem = new Item();
-					
-					
-				}
-								
-//				System.out.println(newItem.getTpid() + " " + newItem.getSize() + " " + newItem.getStyle() + " " + newItem.getNrf() + " " + 
-//						newItem.getLocationStoreNum() + " " + newItem.getLocationStoreName() + " " + newItem.getLocationCity() + " " + newItem.getLocationState() + " " + 
-//						newItem.getLocationZip() + " " + newItem.getLocationCountry() + " " + newItem.getLocationAddress() + " " + "\n");
 			}
 			
-			
-//			for(int a = 0; a < dataSet.size(); a++)
-//			{
-//				Item testItem = dataSet.getItem(a);
-//				
-//				System.out.println(testItem.getTpid() + " " + testItem.getSize() + " " + testItem.getStyle() + " " + testItem.getNrf() + " " + 
-//						testItem.getLocationStoreNum() + " " + testItem.getLocationStoreName() + " " + testItem.getLocationCity() + " " + testItem.getLocationState() + " " + 
-//						testItem.getLocationZip() + " " + testItem.getLocationCountry() + " " + testItem.getLocationAddress() + " " + "\n");
-//			}
-//			System.out.println(dataSet.size());
+			for(int a = 0; a < dataSet.size(); a++)
+			{
+				Item testItem = dataSet.getItem(a);
+				
+				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
+						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
+						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
+			}
+			System.out.println(dataSet.size());
 		}
 		catch (IOException e)
 		{
@@ -102,7 +91,7 @@ public class FileIO
 	}
 	
 	// Close the reader stream and file 
-	public void close() 
+	public void close()
 	{
 		try 
 		{ 

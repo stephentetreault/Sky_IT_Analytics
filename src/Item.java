@@ -4,92 +4,96 @@ import java.lang.String;
  * This class represents an Item object. 
  * 
  * Attributes include: 
- * - TPID  -- (my 1st example is just Nordstrom Retailer for client Marc Jacobs)
- * - Size
+ * - TPID  
+ * - Store Number
+ * - City
+ * - State
+ * - Zip
+ * - Country
  * - Style
- * - NRF Color Code
- * - Location: 
- * 		- Store Number
- * 		- Store Name
- * 		- City
- * 		- State
- * 		- Zip Code
- * 		- Country
- * 		- Address 1
- * 		- Address 2  (possible blank values)
- * 			- Address 1 and 2 will be concatenated
- * 
+ * - NRF Code
+ * - Size
+ * - Region 
+ * - Division 
  */
-public class Item 
+
+public class Item
 {
 	private String tpid;
-	private String size;
+	private String storeNum;
+	private String city;
+	private String state;
+	private String zip;
+	private String country;
 	private String style;
 	private String nrf;
-	private Location location;
+	private String size;
+	private Region region;  //Region will contain subregion of division
 	
 	public Item()
 	{
 		tpid = "";
+		storeNum = "";
+		city = "";
+		state = "";
+		zip = "";
+		country = "";
 		size = "";
 		style = "";
 		nrf = "";
-		location = new Location();
+		region = new Region();
 	}
-	
-	//Below are the Get/Set methods for the class attributes
-	public void setTpid(String x)  { tpid = this.stripQuotes(x); }
-	public String getTpid()        { return tpid; }
-	
-	public void setSize(String x)  { size = this.stripQuotes(x); }
-	public String getSize()        { return size; }
-	
-	public void setStyle(String x) { style = this.stripQuotes(x); }
-	public String getStyle()       { return style; }
-	
-	public void setNrf(String x)   { nrf = this.stripQuotes(x); }
-	public String getNrf()         { return nrf; }
 	
 	/*
-	 * City, State, and Zip are most granular levels. 
-	 * 
-	 * Region by ZipCode should be added. Consider how to approach this. 
+	 * Get/Set methods for the class attributes
 	 */
-	public void setLocation(String a, String b, String c, String d, String e, String f, String g, String h)
-	{
-		if(c.equals(""))
-		{
-			location.setStoreNum(000);
-		}
-		else
-		{
-			location.setStoreNum(Integer.parseInt(this.stripQuotes(c)));
-		} 
-		
-		
-		if(g.equals(""))
-		{
-			location.setZip(00000);
-		}
-		else
-		{
-			location.setZip(Integer.parseInt(this.stripQuotes(g)));
-		}
-		
-		location.setStoreName(this.stripQuotes(d));
-		location.setCity(this.stripQuotes(e));
-		location.setState(this.stripQuotes(f));
-		location.setCountry(this.stripQuotes(h));
-		location.setAddress(this.stripQuotes(a), this.stripQuotes(b));
-	}
+	public void setTpid(String x)  		{ tpid = this.stripQuotes(x); }
+	public String getTpid()        		{ return tpid; }
 	
-	public int getLocationStoreNum()     { return location.getStoreNum(); }
-	public String getLocationStoreName() { return location.getStoreName(); }
-	public String getLocationCity()      { return location.getCity(); }
-	public String getLocationState()     { return location.getState(); }
-	public int getLocationZip()          { return location.getZip(); }
-	public String getLocationCountry()   { return location.getCountry(); }
-	public String getLocationAddress()   { return location.getAddress(); }
+	public void setStoreNum(String x)   { storeNum = this.stripQuotes(x); }
+	public String getStoreNum()         { return storeNum; }
+	
+	public void setCity(String x)  		{ city = this.stripQuotes(x); }
+	public String getCity()        		{ return city; }
+	
+	public void setState(String x)  	{ state = this.stripQuotes(x); }
+	public String getState()        	{ return state; }
+	
+	public void setZip(String x)  		{ zip = this.stripQuotes(x); }
+	public String getZip()        		{ return zip; }
+	
+	public void setCountry(String x)  	{ country = this.stripQuotes(x); }
+	public String getCountry()        	{ return country; }
+	
+	public void setSize(String x)  		{ size = this.stripQuotes(x); }
+	public String getSize()        		{ return size; }
+	
+	public void setStyle(String x) 		{ style = this.stripQuotes(x); }
+	public String getStyle()       		{ return style; }
+	
+	public void setNrf(String x)    	
+	{ 
+		/*
+		 * Pad NRF codes with leading zeros if needed
+		 */
+		if(x.length() == 1)
+		{
+			nrf = new StringBuilder().append("00").append(x).toString();
+		}
+		else if(x.length() == 2)
+		{
+			nrf = new StringBuilder().append("0").append(x).toString();
+		}
+		else
+		{
+			nrf = this.stripQuotes(x); 
+		}
+	}
+	public String getNrf()         		{ return nrf; }
+	
+	public void setRegion(String x)  	{ region.setRegionAndDivision(x); }
+	public int getItemRegion()        	{ return region.getRegion(); }
+	public int getItemDivision()		{ return region.getDivision(); }
 	
 	// Strip enclosure quotation marks 
 	public String stripQuotes(String x)  { return x.replace("\"", ""); }
