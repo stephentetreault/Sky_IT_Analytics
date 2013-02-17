@@ -63,22 +63,18 @@ public class FileIO
 				newItem.setSize(temp[8]);
 				dataSet.addItem(newItem);
 				
-//				System.out.println(newItem.getTpid() + " " + newItem.getStoreNum() + " " + newItem.getCity() + " " + newItem.getState() + " " +
-//						newItem.getItemRegion() + " " + newItem.getItemDivision() + " " + newItem.getZip() + " " + newItem.getCountry() + " " +
-//						newItem.getStyle() + " " + newItem.getNrf() + " " + newItem.getSize() + " " + "\n");
-				
 				newItem = new Item();
 			}
 			
-//			for(int a = 0; a < dataSet.size(); a++)
-//			{
-//				Item testItem = dataSet.getItem(a);
-//				
-//				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
-//						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
-//						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
-//			}
-//			System.out.println(dataSet.size());
+			for(int a = 0; a < dataSet.size(); a++)
+			{
+				Item testItem = dataSet.getItem(a);
+				
+				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
+						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
+						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
+			}
+			System.out.println(dataSet.size());
 		}
 		catch (IOException e)
 		{
