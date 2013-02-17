@@ -30,9 +30,8 @@ public class FileIO
 	}
 	
 	/*
-	 * FileIO right now is being done with a BufferedReader but I 
-	 * need to consider dealing with massive files, perhaps memory-mapping
-	 * them and breaking them into chunks to deal with. 
+	 * FileIO right now is done with BufferedReader but I need to consider dealing with massive files, 
+	 * perhaps memory-mapping them and breaking them into chunks to deal with. 
 	 * 
 	 * Approach discussed here: http://www.linuxtopia.org/online_books/programming_books/thinking_in_java/TIJ314_029.htm
 	 */
@@ -43,14 +42,13 @@ public class FileIO
 			line = br.readLine(); //eat up the header line
 			
 			/*
-			 * I'm working under some current assumptions, mainly that each item
-			 * will have the correct expected input for location (mainly that state is set). 
+			 * I'm working under assumptions that each item will have the correct expected
+			 * input for location (mainly that state is set and size is set). 
 			 * 
 			 * We ignore any online/e-commerce sales since location isn't set for those items. 
 			 */
 			while((line = br.readLine()) != null)
 			{
-				//temp[] contains (in order) TPID, Store Num, City, State, Zip, Country, Style, NRF, Size
 				String[] temp = line.split(","); 
 				
 				newItem.setTpid(temp[0]);
@@ -70,18 +68,17 @@ public class FileIO
 //						newItem.getStyle() + " " + newItem.getNrf() + " " + newItem.getSize() + " " + "\n");
 				
 				newItem = new Item();
-
 			}
 			
-			for(int a = 0; a < dataSet.size(); a++)
-			{
-				Item testItem = dataSet.getItem(a);
-				
-				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
-						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
-						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
-			}
-			System.out.println(dataSet.size());
+//			for(int a = 0; a < dataSet.size(); a++)
+//			{
+//				Item testItem = dataSet.getItem(a);
+//				
+//				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
+//						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
+//						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
+//			}
+//			System.out.println(dataSet.size());
 		}
 		catch (IOException e)
 		{

@@ -2,9 +2,7 @@ import java.util.ArrayList;
 
 /*
  * Data struct class to hold Item objects 
- * 
- * This is subject to change depending on efficiency for larger data sets
- * 
+
  * ARRAYLIST IS NOT SYNCHRONIZED. IF MULTITHREADED I NEED TO SYNCHRONIZE THIS EXTERNALLY.
  * 
  * Most operations run near constant time but performance will be 
@@ -25,30 +23,14 @@ public class ItemSet
 	 * 
 	 * http://docs.oracle.com/javase/6/docs/api/java/util/ArrayList.html
 	 */
-	public void addItem(Item item)
-	{
-		itemList.add(item);
-	}
+	public void addItem(Item item)  { itemList.add(item); }
+	public Item getItem(int index)  { return itemList.get(index); }
 	
-	public Item getItem(int index)
-	{
-		return itemList.get(index); 
-	}
+	public void clear()             { itemList.clear(); }
 	
-	public void clear()
-	{
-		itemList.clear();
-	}
+	public int size()               { return itemList.size(); }
 	
-	public int size()
-	{
-		return itemList.size();
-	}
-	
-	public void trimToSize()
-	{
-		itemList.trimToSize();
-	}
+	public void trimToSize()        { itemList.trimToSize(); }
 	
 	/*
 	 *  Increases the capacity of this ArrayList instance, if needed, to ensure that it can hold at

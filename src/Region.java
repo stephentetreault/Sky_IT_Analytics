@@ -43,7 +43,7 @@ public class Region
 	private final static Set<String> DIVISION_SIX = new HashSet<String>(Arrays.asList(new String[] {"KY", "TN", "MS", "AL"}));
 	private final static Set<String> DIVISION_SEVEN = new HashSet<String>(Arrays.asList(new String[] {"OK", "TX", "AR", "LA"}));
 	private final static Set<String> DIVISION_EIGHT = new HashSet<String>(Arrays.asList(new String[] {"ID", "MT", "WY", "NV", "UT", "CO", "AZ", "NM"}));
-	private final static Set<String> DIVISION_NINE = new HashSet<String>(Arrays.asList(new String[] {"AK", "WA", "OR", "CA", "HA"}));
+	private final static Set<String> DIVISION_NINE = new HashSet<String>(Arrays.asList(new String[] {"AK", "WA", "OR", "CA", "HA", "HI"})); //HI and HA for Hawaii 
 	
 	private int region;
 	private int division;
