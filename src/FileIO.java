@@ -8,8 +8,9 @@ public class FileIO
 {
 	private BufferedReader br;
 	private String line;
-	private Item newItem;
-	private ItemSet dataSet;
+	//private Item newItem;
+	//private ItemSet dataSet;
+	private DataList collection;
 	
 	// Class constructor
 	public FileIO(String path) 
@@ -25,8 +26,9 @@ public class FileIO
 		}
 		
 		line = "";
-		newItem = new Item();
-		dataSet = new ItemSet();  //THIS MAY CHANGE IF I USE HASHMAP
+		//newItem = new Item();
+		//dataSet = new ItemSet();  //THIS MAY CHANGE IF I USE HASHMAP
+		collection = new DataList();
 	}
 	
 	/*
@@ -37,6 +39,7 @@ public class FileIO
 	 */
 	public void read() 
 	{
+		int count = 0;
 		try
 		{
 			line = br.readLine(); //eat up the header line
@@ -49,32 +52,28 @@ public class FileIO
 			 */
 			while((line = br.readLine()) != null)
 			{
+				count++;
 				String[] temp = line.split(","); 
 				
-				newItem.setTpid(temp[0]);
-				newItem.setStoreNum(temp[1]);
-				newItem.setCity(temp[2]);
-				newItem.setState(temp[3]);
-				newItem.setRegion(temp[3]);
-				newItem.setZip(temp[4]);
-				newItem.setCountry(temp[5]);
-				newItem.setStyle(temp[6]);
-				newItem.setNrf(temp[7]);
-				newItem.setSize(temp[8]);
-				dataSet.addItem(newItem);
+				//collection.updateRegionAndDivisionFreq(temp[3]);
+				//collection.updateSizeFreq(temp[8]);
 				
-				newItem = new Item();
-			}
-			
-			for(int a = 0; a < dataSet.size(); a++)
-			{
-				Item testItem = dataSet.getItem(a);
 				
-				System.out.println(testItem.getTpid() + " " + testItem.getStoreNum() + " " + testItem.getCity() + " " + testItem.getState() + " " +
-						testItem.getItemRegion() + " " + testItem.getItemDivision() + " " + testItem.getZip() + " " + testItem.getCountry() + " " +
-						testItem.getStyle() + " " + testItem.getNrf() + " " + testItem.getSize() + " " + "\n");
+				
+				//newItem.setTpid(temp[0]);
+				//newItem.setStoreNum(temp[1]);
+				//newItem.setCity(temp[2]);
+				//newItem.setState(temp[3]);
+				//newItem.setRegion(temp[3]);
+				//newItem.setZip(temp[4]);
+				//newItem.setCountry(temp[5]);
+				//newItem.setStyle(temp[6]);
+				//newItem.setNrf(temp[7]);
+				//newItem.setSize(temp[8]);
+				//dataSet.addItem(newItem);
+				//newItem = new Item();
 			}
-			System.out.println(dataSet.size());
+			System.out.println(count);			
 		}
 		catch (IOException e)
 		{
