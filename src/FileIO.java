@@ -26,8 +26,6 @@ public class FileIO
 		}
 		
 		line = "";
-		//newItem = new Item();
-		//dataSet = new ItemSet();  //THIS MAY CHANGE IF I USE HASHMAP
 		collection = new DataList();
 	}
 	
@@ -44,34 +42,12 @@ public class FileIO
 		{
 			line = br.readLine(); //eat up the header line
 			
-			/*
-			 * I'm working under assumptions that each item will have the correct expected
-			 * input for location (mainly that state is set and size is set). 
-			 * 
-			 * We ignore any online/e-commerce sales since location isn't set for those items. 
-			 */
 			while((line = br.readLine()) != null)
 			{
 				count++;
 				String[] temp = line.split(","); 
-				
-				//collection.updateRegionAndDivisionFreq(temp[3]);
-				//collection.updateSizeFreq(temp[8]);
-				
-				
-				
-				//newItem.setTpid(temp[0]);
-				//newItem.setStoreNum(temp[1]);
-				//newItem.setCity(temp[2]);
-				//newItem.setState(temp[3]);
-				//newItem.setRegion(temp[3]);
-				//newItem.setZip(temp[4]);
-				//newItem.setCountry(temp[5]);
-				//newItem.setStyle(temp[6]);
-				//newItem.setNrf(temp[7]);
-				//newItem.setSize(temp[8]);
-				//dataSet.addItem(newItem);
-				//newItem = new Item();
+				collection.setItem(temp[3], temp[8]);
+				collection.print();
 			}
 			System.out.println(count);			
 		}
