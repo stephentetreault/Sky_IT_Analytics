@@ -149,4 +149,9 @@ public class DataList
 	{
 		System.out.println(newItem.getRegion() + "  " + newItem.getDivision() + "  " + newItem.getSize() + "  " + newItem.getState() + "\n");
 	}
+	
+	public void calcCorrelation()
+	{
+		
+	}
 }

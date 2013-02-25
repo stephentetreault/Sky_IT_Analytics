@@ -47,7 +47,7 @@ public class FileIO
 				count++;
 				String[] temp = line.split(","); 
 				collection.setItem(temp[3], temp[8]);
-				collection.print();
+				//collection.print();
 			}
 			System.out.println(count);			
 		}
