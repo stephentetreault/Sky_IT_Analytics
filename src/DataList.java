@@ -85,6 +85,7 @@ public class DataList
 		this.setRegionAndDivision(stateVar);
 		this.updateSizeFreq(sizeVar);
 		itemList.add(newItem);
+		//System.out.println(newItem.getRegion() + "   " + newItem.getDivision() + "   " + "\n");
 	}
 	
 	//Set size variable 
@@ -150,8 +151,9 @@ public class DataList
 		System.out.println(newItem.getRegion() + "  " + newItem.getDivision() + "  " + newItem.getSize() + "  " + newItem.getState() + "\n");
 	}
 	
-	public void calcCorrelation()
+	public double calcCorrelation()
 	{
-		
+		corrCoeff = new Correlation(this.itemList);
+		return corrCoeff.calculateCoefficient();
 	}
 }

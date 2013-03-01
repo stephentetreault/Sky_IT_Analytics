@@ -18,8 +18,8 @@ public class SkyITAnalytics
 	
 	private static void init()
 	{
-		String fp = "C:\\Users\\STetreault\\Desktop\\sampleDataSet.csv";  //big data set
-		//String fp = "C:\\Users\\STetreault\\Desktop\\dataTest.csv"; 
+		//String fp = "C:\\Users\\STetreault\\Desktop\\sampleDataSet.csv";  //big data set
+		String fp = "C:\\Users\\STetreault\\Desktop\\dataTest.csv"; 
 		FileIO fio = new FileIO(fp);
 		fio.read();
 		fio.close();

@@ -34,12 +34,19 @@ public class Correlation
 		corrCoeff = 0.00; 
 		n = list.size();
 		
+		System.out.println(n + "\n");
 		for (int a = 0; a < n; a++)
 		{
 			sumSize += list.get(a).getSize();
 			sumSizeSqrd += (list.get(a).getSize() * list.get(a).getSize());   //x^2 done like this is faster than Math.pow()
 			
+			if(list.get(a).getSize() != 37)
+			{
+				System.out.println("item Size: " + list.get(a).getSize() + "\n");
+			}
+			
 			sumRegion += list.get(a).getRegion();
+			//System.out.println(sumRegion + "\n");
 			sumRegionSqrd += (list.get(a).getRegion() * list.get(a).getRegion());
 			
 //			sumDivision += list.get(a).getDivision();
@@ -52,6 +59,8 @@ public class Correlation
 		meanSize = sumSize/list.size();
 		meanRegion = sumRegion/list.size();
 //		meanDivision = sumDivision/list.size();
+		
+		//System.out.println("sumSize: " + sumSize + "  " + "sumRegion: " + sumRegion + "   " + "product: " + sizeLocationProduct + "  \n");
 	}
 	
 	public double calculateCoefficient()

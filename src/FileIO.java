@@ -11,6 +11,7 @@ public class FileIO
 	//private Item newItem;
 	//private ItemSet dataSet;
 	private DataList collection;
+	//private Correlation corrCoeff;
 	
 	// Class constructor
 	public FileIO(String path) 
@@ -47,9 +48,10 @@ public class FileIO
 				count++;
 				String[] temp = line.split(","); 
 				collection.setItem(temp[3], temp[8]);
-				//collection.print();
+				collection.print();
 			}
-			System.out.println(count);			
+			//System.out.println(collection.calcCorrelation());	
+			//corrCoeff = new Correlation(collection);
 		}
 		catch (IOException e)
 		{
