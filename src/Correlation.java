@@ -8,67 +8,90 @@ import java.util.ArrayList;
  */
 public class Correlation
 {
-	/*
-	 * For now I'm calculating values for both region and division, only one will be used at a time though
-	 */
-	private double sumSize;        //sum(x)
-	private double sumSizeSqrd;    //x^2
-	private double sumRegion;      //sum(y1)
-	private double sumRegionSqrd;  //y1^2
-//	private double sumDivision;    //sum(y2)
-//	private double sumDivisionSqrd;  //y2^2
-	private double meanSize;      //x-bar
-	private double meanRegion;    //y1-bar
-//	private double meanDivision;  //y2-bar
-	private double sizeLocationProduct;  //x*y  
-	private double corrCoeff;  // our r value (the correlation coefficient)
+	private FileIO fio;
+	private ArrayList<Item> collection;
+	private double sumSize;              //sum(x)
+	private double sumSizeSqrd;          //x^2
+	private double sumRegion;            //sum(y1)
+	private double sumRegionSqrd;        //y1^2
+	private double sumDivision;          //sum(y2)
+	private double sumDivisionSqrd;      //y2^2
+	private double meanSize;             //x-bar
+	private double meanRegion;           //y1-bar
+	private double meanDivision;         //y2-bar
+	private double sizeRegionProduct;    //x*y  
+	private double sizeDivisionProduct;  //x*y
+	private double corrCoef;            // our r value (the correlation coefficient)
 	private int n;
-	
-	/*
-	 * Constructor
-	 * 
-	 * Calculate values for variables. 
-	 */
-	public Correlation(ArrayList<Item> list)
+
+	public Correlation(String path)
 	{
-		corrCoeff = 0.00; 
-		n = list.size();
+		fio = new FileIO(path);
+		collection = new ArrayList<Item>();
+		sumSize = 0;
+		sumSizeSqrd = 0;
+		sumRegion = 0;
+		sumRegionSqrd = 0;
+		sumDivision = 0;
+		sumDivisionSqrd = 0;
+		meanSize = 0;
+		meanRegion = 0;
+		meanDivision = 0;
+		sizeRegionProduct = 0;
+		sizeDivisionProduct = 0;
+		corrCoef = 0;
+		n = 0;
+	}
+	
+	public void init()
+	{
+		fio.read();
+		collection = fio.getCollection();
 		
-		System.out.println(n + "\n");
-		for (int a = 0; a < n; a++)
+		n = collection.size();
+		
+		for (int b = 0; b < n; b++)
 		{
-			sumSize += list.get(a).getSize();
-			sumSizeSqrd += (list.get(a).getSize() * list.get(a).getSize());   //x^2 done like this is faster than Math.pow()
-			
-			if(list.get(a).getSize() != 37)
-			{
-				System.out.println("item Size: " + list.get(a).getSize() + "\n");
-			}
-			
-			sumRegion += list.get(a).getRegion();
-			//System.out.println(sumRegion + "\n");
-			sumRegionSqrd += (list.get(a).getRegion() * list.get(a).getRegion());
-			
-//			sumDivision += list.get(a).getDivision();
-//			sumDivisionSqrd += (list.get(a).getDivision() * list.get(a).getDivision());
-		
-			sizeLocationProduct += (list.get(a).getSize() *  list.get(a).getRegion());
-//			sizeLocationProduct += (list.get(a).getSize() *  list.get(a).getDivision());
+			sumSize += collection.get(b).getSize();
+			sumDivision += collection.get(b).getDivision();
+			sumRegion += collection.get(b).getRegion();
+			sumSizeSqrd += (collection.get(b).getSize() * collection.get(b).getSize());
+			sumRegionSqrd += (collection.get(b).getRegion() * collection.get(b).getRegion());
+			sumDivisionSqrd += (collection.get(b).getDivision() * collection.get(b).getDivision());
+			sizeRegionProduct += (collection.get(b).getSize() * collection.get(b).getRegion());
+			sizeDivisionProduct += (collection.get(b).getSize() * collection.get(b).getDivision());
 		}
 		
-		meanSize = sumSize/list.size();
-		meanRegion = sumRegion/list.size();
-//		meanDivision = sumDivision/list.size();
+		meanSize = sumSize/n;
+		meanRegion = sumRegion/n;
+		meanDivision = sumDivision/n;
 		
-		//System.out.println("sumSize: " + sumSize + "  " + "sumRegion: " + sumRegion + "   " + "product: " + sizeLocationProduct + "  \n");
+		double numerator = (n * sizeRegionProduct - ((sumSize * sumRegion)/n));
+		double denomP1 = (n * sumSizeSqrd - ((sumSize * sumSize)/n));
+		double denomP2 = (n * sumRegionSqrd - ((sumRegion * sumRegion)/n));
+		double denominator = Math.sqrt(denomP1 * denomP2);
+		
+		System.out.println("n = " + n + "\n" +
+						   "Sum(X) = " + sumSize + "\n" +
+						   "Sum(Y) = " + sumRegion + "\n" +
+						   "Sum(XY) = " + sizeRegionProduct + "\n" + 
+						   "Sum(X^2) = " + sumSizeSqrd + "\n" +
+						   "Sum(X)^2 = " + (sumSize * sumSize) + "\n" + 
+						   "Sum(Y^2) = " + sumRegionSqrd + "\n" +
+						   "Sum(Y)^2 = " + (sumRegion * sumRegion) + "\n");
+		
+		corrCoef = numerator/denominator;
+		
+		System.out.println("Correlation Coefficient: " + corrCoef + "\n");
+		
+		for(int c = 0; c < collection.size(); c++)
+		{
+			System.out.println(collection.get(c).getSize() + "," + collection.get(c).getRegion());
+		}
 	}
 	
-	public double calculateCoefficient()
-	{
-		double numerator = (n * sizeLocationProduct - (sumSize*sumRegion));
-		double denomPart1 = (n*sumSizeSqrd - (sumSize*sumSize));
-		double denomPart2 = (n*sumRegionSqrd - (sumRegion*sumRegion));
-		double denom = Math.sqrt(denomPart1*denomPart2);
-		return (numerator/denom); 
-	}
+//	public double calculate()
+//	{
+//		
+//	}
 }

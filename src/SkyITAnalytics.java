@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /*
  * Sky IT Group Analytics platform
@@ -13,16 +14,8 @@ public class SkyITAnalytics
 {
 	public static void main(String[] args) 
 	{
-		init();
-	}
-	
-	private static void init()
-	{
-		//String fp = "C:\\Users\\STetreault\\Desktop\\sampleDataSet.csv";  //big data set
-		String fp = "C:\\Users\\STetreault\\Desktop\\dataTest.csv"; 
-		FileIO fio = new FileIO(fp);
-		fio.read();
-		fio.close();
-		System.gc();  //invoke garbage collector so JVM can try to recycle unused objects to free some memory
+		String fp = "C:\\Users\\STetreault\\Desktop\\dataTest.csv";
+		Correlation correlation = new Correlation(fp);
+		correlation.init();
 	}
 }

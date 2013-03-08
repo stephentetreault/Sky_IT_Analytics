@@ -3,15 +3,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.String; 
+import java.util.ArrayList;
 
 public class FileIO 
 {
 	private BufferedReader br;
 	private String line;
-	//private Item newItem;
-	//private ItemSet dataSet;
-	private DataList collection;
-	//private Correlation corrCoeff;
+	private Item newItem;
+	private ArrayList<Item> collection;
 	
 	// Class constructor
 	public FileIO(String path) 
@@ -27,7 +26,8 @@ public class FileIO
 		}
 		
 		line = "";
-		collection = new DataList();
+		collection  = new ArrayList<Item>();
+		//newItem = new Item();
 	}
 	
 	/*
@@ -38,26 +38,43 @@ public class FileIO
 	 */
 	public void read() 
 	{
-		int count = 0;
+		//int count = 0;
+		
 		try
 		{
 			line = br.readLine(); //eat up the header line
-			
+
 			while((line = br.readLine()) != null)
 			{
-				count++;
+				newItem = new Item();
+				//count++;
 				String[] temp = line.split(","); 
-				collection.setItem(temp[3], temp[8]);
-				collection.print();
+				newItem.setTPID(temp[0]);
+				newItem.setCountry(temp[1]);
+				newItem.setState(temp[2]);
+				newItem.setRegionAndDivision(temp[2]);
+				newItem.setCity(temp[3]);
+				newItem.setSize(temp[4]);
+				newItem.setNRF(temp[5]);
+				newItem.setUnitsSold(temp[6]);
+				newItem.setSalesDollars(temp[7]);
+				
+				
+//				System.out.println(temp[0] + "  " + temp[1] + "  " + temp[2] + "  " + temp[3] + "  " + 
+//									 temp[4] + "  " + temp[5] + "  " + temp[6] + "  " + temp[7] + "  " + "\n");
+				collection.add(newItem);
 			}
-			//System.out.println(collection.calcCorrelation());	
-			//corrCoeff = new Correlation(collection);
 		}
 		catch (IOException e)
 		{
 			System.out.println("EXCEPTION THROWN WHILE READING FILE \n");
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Item> getCollection()
+	{
+		return collection;
 	}
 	
 	// Close the reader stream and file 
